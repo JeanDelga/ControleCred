@@ -2,6 +2,7 @@ services:
   app:
     build: .
     container_name: controlecred_app
+    user: "${UID}:${GID}"
     ports:
       - "8087:80"
     volumes:

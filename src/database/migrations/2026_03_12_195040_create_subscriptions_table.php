@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('plan_id')->constrained()->restrictOnDelete();
+            $table->enum('status', ['trialing', 'active', 'past_due', 'canceled'])->default('trialing');
+            $table->timestamp('starts_at')->nullable();
+            $table->timestamp('ends_at')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
+            $table->string('gateway')->nullable();
+            $table->string('gateway_subscription_id')->nullable();
             $table->timestamps();
         });
     }
